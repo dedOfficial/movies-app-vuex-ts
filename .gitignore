@@ -3,7 +3,7 @@ node_modules
 /dist
 
 .firebase
-package-losk.json
+package-lock.json
 
 
 # local env files
