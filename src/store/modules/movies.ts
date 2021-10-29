@@ -32,7 +32,7 @@ function serializeResponse(movies: TData[]): TSerializedData {
   return res;
 }
 
-const { MOVIES } = mutations;
+const { MOVIES, CURRENT_PAGE } = mutations;
 
 const moviesStore = {
   namespaced: true,
@@ -50,10 +50,14 @@ const moviesStore = {
         top250IDs.slice(from, to),
     currentPage: ({ currentPage }: IMoviesState): number => currentPage,
     moviesPerPage: ({ moviesPerPage }: IMoviesState): number => moviesPerPage,
+    moviesTotal: ({ top250IDs }: IMoviesState): number => top250IDs.length,
   },
   mutations: {
     [MOVIES]: (state: IMoviesState, movies: TSerializedData): void => {
       state.movies = movies;
+    },
+    [CURRENT_PAGE]: (state: IMoviesState, page: number): void => {
+      state.currentPage = page;
     },
   },
   actions: {
@@ -81,6 +85,13 @@ const moviesStore = {
       } catch (error) {
         console.log(error);
       }
+    },
+    changeCurrentPage(
+      { commit, dispatch }: ActionContext<IMoviesState, IRootState>,
+      page: number
+    ): void {
+      commit(CURRENT_PAGE, page);
+      dispatch('fetchMovies');
     },
   },
 };
