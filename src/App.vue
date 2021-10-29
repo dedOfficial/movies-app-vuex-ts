@@ -10,7 +10,7 @@ export default Vue.extend({
   name: 'App',
   components: {},
   mounted() {
-    this.fetchMovies();
+    // this.fetchMovies();
   },
   methods: {
     ...mapActions('movies', ['fetchMovies']),

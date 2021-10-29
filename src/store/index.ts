@@ -9,7 +9,7 @@ export interface IRootState {
   [k: string]: any;
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
@@ -17,3 +17,7 @@ export default new Vuex.Store({
     movies,
   },
 });
+
+store.dispatch('initMoviesState');
+
+export default store;

@@ -42,18 +42,26 @@ const moviesStore = {
   getters: {
     sliceIDs:
       ({ top250IDs }: IMoviesState) =>
-      (from: number, to: number) =>
+      (from: number, to: number): string[] =>
         top250IDs.slice(from, to),
-    currentPage: ({ currentPage }: IMoviesState) => currentPage,
-    moviesPerPage: ({ moviesPerPage }: IMoviesState) => moviesPerPage,
+    currentPage: ({ currentPage }: IMoviesState): number => currentPage,
+    moviesPerPage: ({ moviesPerPage }: IMoviesState): number => moviesPerPage,
   },
   mutations: {
-    [MOVIES]: (state: IMoviesState, movies: TSerializedData) => {
+    [MOVIES]: (state: IMoviesState, movies: TSerializedData): void => {
       state.movies = movies;
     },
   },
   actions: {
-    async fetchMovies(context: ActionContext<IMoviesState, IRootState>) {
+    initMoviesState: {
+      handler(context: ActionContext<IMoviesState, IRootState>): void {
+        context.dispatch('fetchMovies');
+      },
+      root: true,
+    },
+    async fetchMovies(
+      context: ActionContext<IMoviesState, IRootState>
+    ): Promise<void> {
       try {
         const { sliceIDs, currentPage, moviesPerPage } = context.getters;
         const to = currentPage * moviesPerPage;
