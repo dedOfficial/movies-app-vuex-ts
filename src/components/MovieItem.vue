@@ -35,7 +35,6 @@ export default Vue.extend({
       required: true,
     },
   },
-  computed: {},
 });
 </script>
 

@@ -5,7 +5,10 @@
       <BRow>
         <template v-if="isExist">
           <BCol cols="3" v-for="(movie, key) in list" :key="key">
-            <MovieItem :movie="movie" />
+            <MovieItem
+              :movie="movie"
+              @mouseover.native="onMouseOver(movie.Poster)"
+            />
           </BCol>
         </template>
         <template v-else>
@@ -32,6 +35,11 @@ export default Vue.extend({
       default: () => ({}),
     },
   },
+  methods: {
+    onMouseOver(poster: string) {
+      this.$emit('changePoster', poster);
+    },
+  },
   computed: {
     isExist() {
       return !!Object.keys(this.$props.list).length;
@@ -40,4 +48,9 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.movies-list-title {
+  color: #fff;
+  margin-bottom: 30px;
+}
+</style>
