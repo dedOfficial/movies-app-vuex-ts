@@ -14,10 +14,13 @@ export interface IMoviesState {
 
 export type TData = {
   imdbID?: string;
+  Title?: string;
+  Poster?: string;
+  Year?: string;
   [k: string]: any;
 };
 
-type TSerializedData = { [k: string]: TData };
+export type TSerializedData = { [k: string]: TData };
 
 function serializeResponse(movies: TData[]): TSerializedData {
   const res = movies.reduce((acc, mov) => {
@@ -40,6 +43,7 @@ const moviesStore = {
     movies: {},
   },
   getters: {
+    moviesList: ({ movies }: IMoviesState): TSerializedData => movies,
     sliceIDs:
       ({ top250IDs }: IMoviesState) =>
       (from: number, to: number): string[] =>
