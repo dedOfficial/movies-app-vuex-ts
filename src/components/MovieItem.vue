@@ -14,7 +14,13 @@
       </div>
       <div class="movie-item-controls row no-gutter">
         <div class="col">
-          <BButton size="md" block variant="outline-light">Edit</BButton>
+          <BButton
+            size="md"
+            block
+            variant="outline-light"
+            @click="showInfoModalEvent"
+            >Info</BButton
+          >
         </div>
         <div class="col">
           <BButton
@@ -47,6 +53,9 @@ export default Vue.extend({
         id: this.movie.imdbID,
         title: this.movie.Title,
       });
+    },
+    showInfoModalEvent() {
+      this.$emit('showModal', this.movie.imdbID);
     },
   },
 });

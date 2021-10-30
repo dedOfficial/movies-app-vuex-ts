@@ -9,6 +9,7 @@
               :movie="movie"
               @mouseover.native="onMouseOver(movie.Poster)"
               @removeItem="onRemoveItem"
+              @showModal="onShowMovieInfo"
             />
           </BCol>
         </template>
@@ -16,6 +17,18 @@
           <div>Empty list</div>
         </template>
       </BRow>
+      <BModal
+        body-class="movie-modal-body"
+        :id="movieInfoModalId"
+        size="xl"
+        hide-footer
+        hide-header
+      >
+        <MovieInfoModalContent
+          :movie="selectedMovie"
+          @closeModal="onCloseModal"
+        />
+      </BModal>
     </BContainer>
   </div>
 </template>
@@ -24,12 +37,14 @@
 import Vue, { PropType } from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import MovieItem from '@/components/MovieItem.vue';
+import MovieInfoModalContent from '@/components/MovieInfoModalContent.vue';
 import { TSerializedData } from '@/store/modules/movies';
 
 export default Vue.extend({
   name: 'MoviesList',
   components: {
     MovieItem,
+    MovieInfoModalContent,
   },
   props: {
     list: {
@@ -37,6 +52,10 @@ export default Vue.extend({
       default: () => ({}),
     },
   },
+  data: () => ({
+    movieInfoModalId: 'movie-info',
+    selectedMovieID: '',
+  }),
   methods: {
     ...mapActions('movies', ['removeMovie']),
     ...mapActions(['showNotify']),
@@ -64,6 +83,14 @@ export default Vue.extend({
         });
       }
     },
+    onShowMovieInfo(id: string) {
+      this.selectedMovieID = id;
+      this.$bvModal.show(this.movieInfoModalId);
+    },
+    onCloseModal() {
+      this.selectedMovieID = '';
+      this.$bvModal.hide(this.movieInfoModalId);
+    },
   },
   computed: {
     ...mapGetters('movies', ['isSearch']),
@@ -73,6 +100,9 @@ export default Vue.extend({
 
     listTitle() {
       return this.isSearch ? 'Search result' : 'IMDB Top 250';
+    },
+    selectedMovie() {
+      return this.selectedMovieID ? this.list[this.selectedMovieID] : null;
     },
   },
 });
@@ -86,5 +116,11 @@ export default Vue.extend({
 .movies-list-title {
   color: #fff;
   margin-bottom: 30px;
+}
+</style>
+
+<style>
+.movie-modal-body {
+  padding: 0 !important;
 }
 </style>
