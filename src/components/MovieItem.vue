@@ -17,7 +17,13 @@
           <BButton size="md" block variant="outline-light">Edit</BButton>
         </div>
         <div class="col">
-          <BButton size="md" block variant="outline-light">Remove</BButton>
+          <BButton
+            size="md"
+            block
+            variant="outline-light"
+            @click="emitRemoveEvent"
+            >Remove</BButton
+          >
         </div>
       </div>
     </div>
@@ -33,6 +39,14 @@ export default Vue.extend({
     movie: {
       type: Object as PropType<TData>,
       required: true,
+    },
+  },
+  methods: {
+    emitRemoveEvent() {
+      this.$emit('removeItem', {
+        id: this.movie.imdbID,
+        title: this.movie.Title,
+      });
     },
   },
 });

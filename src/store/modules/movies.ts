@@ -32,7 +32,7 @@ function serializeResponse(movies: TData[]): TSerializedData {
   return res;
 }
 
-const { MOVIES, CURRENT_PAGE } = mutations;
+const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE } = mutations;
 
 const moviesStore = {
   namespaced: true,
@@ -59,6 +59,9 @@ const moviesStore = {
     [CURRENT_PAGE]: (state: IMoviesState, page: number): void => {
       state.currentPage = page;
     },
+    [REMOVE_MOVIE]: (state: IMoviesState, index: number): void => {
+      state.top250IDs.splice(index, 1);
+    },
   },
   actions: {
     initMoviesState: {
@@ -67,6 +70,7 @@ const moviesStore = {
       },
       root: true,
     },
+
     async fetchMovies(
       context: ActionContext<IMoviesState, IRootState>
     ): Promise<void> {
@@ -89,12 +93,25 @@ const moviesStore = {
         context.dispatch('toggleLoader', false, { root: true });
       }
     },
+
     changeCurrentPage(
       { commit, dispatch }: ActionContext<IMoviesState, IRootState>,
       page: number
     ): void {
       commit(CURRENT_PAGE, page);
       dispatch('fetchMovies');
+    },
+
+    removeMovie(
+      { commit, dispatch, state }: ActionContext<IMoviesState, IRootState>,
+      id: string
+    ): void {
+      const index = state.top250IDs.findIndex((item) => item === id);
+
+      if (index !== -1) {
+        commit(REMOVE_MOVIE, index);
+        dispatch('fetchMovies');
+      }
     },
   },
 };
