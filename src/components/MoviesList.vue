@@ -67,6 +67,10 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+#movies-list {
+  padding-bottom: 100px;
+}
+
 .movies-list-title {
   color: #fff;
   margin-bottom: 30px;

@@ -1,7 +1,7 @@
 <template>
   <div id="movies-pagination" class="d-flex justify-content-center">
     <BPagination
-      v-model="currentPageModel "
+      v-model="currentPageModel"
       :perPage="perPage"
       :total-rows="total"
       prev-text="Prev"
@@ -45,6 +45,10 @@ export default Vue.extend({
 <style scoped>
 #movies-pagination {
   margin-top: 30px;
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #movies-pagination >>> .pagination .page-item .page-link {
