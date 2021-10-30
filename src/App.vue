@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Loader />
+    <Notification />
     <PosterBg :poster="posterBg" />
     <Header />
     <MoviesList :list="moviesList" @changePoster="onChangePoster" />
@@ -21,6 +22,7 @@ import PosterBg from '@/components/PosterBg.vue';
 import MoviesPagination from '@/components/MoviesPagination.vue';
 import Loader from '@/components/Loader.vue';
 import Header from '@/components/Header.vue';
+import Notification from '@/components/Notification.vue';
 import { Dictionary } from 'vue-router/types/router';
 
 export default Vue.extend({
@@ -31,6 +33,7 @@ export default Vue.extend({
     MoviesPagination,
     Loader,
     Header,
+    Notification,
   },
   data: () => ({
     posterBg: '',
@@ -77,5 +80,9 @@ export default Vue.extend({
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   min-height: 100vh;
+}
+
+#app .b-toaster {
+  z-index: 100000;
 }
 </style>

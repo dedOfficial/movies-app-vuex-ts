@@ -39,17 +39,29 @@ export default Vue.extend({
   },
   methods: {
     ...mapActions('movies', ['removeMovie']),
+    ...mapActions(['showNotify']),
 
     onMouseOver(poster: string) {
       this.$emit('changePoster', poster);
     },
-    async onRemoveItem({ id, title }: { id: string; title: string }) {
+    async onRemoveItem({
+      id,
+      title,
+    }: {
+      id: string;
+      title: string;
+    }): Promise<void> {
       const isConfirmed = await this.$bvModal.msgBoxConfirm(
         'Are you sure delete' + title + '?'
       );
 
       if (isConfirmed) {
         this.removeMovie(id);
+        this.showNotify({
+          variant: 'success',
+          title: 'Success',
+          msg: 'Movie deleted successful',
+        });
       }
     },
   },
