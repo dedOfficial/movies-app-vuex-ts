@@ -22,6 +22,13 @@ export type TData = {
 
 export type TSerializedData = { [k: string]: TData };
 
+type TSearchData = {
+  Response?: string;
+  Error?: string;
+  Search?: TData[];
+  totalResults?: string;
+};
+
 function serializeResponse(movies: TData[]): TSerializedData {
   const res = movies.reduce((acc, mov) => {
     if (mov.imdbID) {
@@ -32,7 +39,7 @@ function serializeResponse(movies: TData[]): TSerializedData {
   return res;
 }
 
-const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE } = mutations;
+const { MOVIES, CURRENT_PAGE, REMOVE_MOVIE, TOGGLE_SEARCH } = mutations;
 
 const moviesStore = {
   namespaced: true,
@@ -41,6 +48,7 @@ const moviesStore = {
     moviesPerPage: 12,
     currentPage: 1,
     movies: {},
+    isSearch: false,
   },
   getters: {
     moviesList: ({ movies }: IMoviesState): TSerializedData => movies,
@@ -51,6 +59,7 @@ const moviesStore = {
     currentPage: ({ currentPage }: IMoviesState): number => currentPage,
     moviesPerPage: ({ moviesPerPage }: IMoviesState): number => moviesPerPage,
     moviesTotal: ({ top250IDs }: IMoviesState): number => top250IDs.length,
+    isSearch: ({ isSearch }: IMoviesState): boolean => isSearch,
   },
   mutations: {
     [MOVIES]: (state: IMoviesState, movies: TSerializedData): void => {
@@ -61,6 +70,9 @@ const moviesStore = {
     },
     [REMOVE_MOVIE]: (state: IMoviesState, index: number): void => {
       state.top250IDs.splice(index, 1);
+    },
+    [TOGGLE_SEARCH]: (state: IMoviesState, bool: boolean): void => {
+      state.isSearch = bool;
     },
   },
   actions: {
@@ -112,6 +124,40 @@ const moviesStore = {
         commit(REMOVE_MOVIE, index);
         dispatch('fetchMovies');
       }
+    },
+
+    async searchMovies(
+      { commit, dispatch }: ActionContext<IMoviesState, IRootState>,
+      query: string
+    ): Promise<void> {
+      try {
+        dispatch('toggleLoader', true, { root: true });
+
+        const response = await (<Promise<TSearchData>>(
+          axios.get(`/?s=${query}`)
+        ));
+
+        if (response.Error) {
+          throw Error(response.Error);
+        }
+
+        if (response.Search) {
+          const movies = serializeResponse(response.Search);
+          commit(MOVIES, movies);
+        }
+      } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+      } finally {
+        dispatch('toggleLoader', false, { root: true });
+      }
+    },
+
+    toggleSearchState(
+      { commit }: ActionContext<IMoviesState, IRootState>,
+      bool: boolean
+    ): void {
+      commit(TOGGLE_SEARCH, bool);
     },
   },
 };

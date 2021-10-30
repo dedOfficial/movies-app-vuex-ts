@@ -1,7 +1,7 @@
 <template>
   <div id="movies-list">
     <BContainer>
-      <h1 class="movies-list-title">IMDB Top 250</h1>
+      <h1 class="movies-list-title">{{ listTitle }}</h1>
       <BRow>
         <template v-if="isExist">
           <BCol cols="3" v-for="(movie, key) in list" :key="key">
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import MovieItem from '@/components/MovieItem.vue';
 import { TSerializedData } from '@/store/modules/movies';
 
@@ -54,8 +54,13 @@ export default Vue.extend({
     },
   },
   computed: {
+    ...mapGetters('movies', ['isSearch']),
     isExist() {
       return !!Object.keys(this.$props.list).length;
+    },
+
+    listTitle() {
+      return this.isSearch ? 'Search result' : 'IMDB Top 250';
     },
   },
 });

@@ -2,6 +2,7 @@
   <div id="app">
     <Loader />
     <PosterBg :poster="posterBg" />
+    <Header />
     <MoviesList :list="moviesList" @changePoster="onChangePoster" />
     <MoviesPagination
       :current-page="currentPage"
@@ -19,6 +20,7 @@ import MoviesList from '@/components/MoviesList.vue';
 import PosterBg from '@/components/PosterBg.vue';
 import MoviesPagination from '@/components/MoviesPagination.vue';
 import Loader from '@/components/Loader.vue';
+import Header from '@/components/Header.vue';
 import { Dictionary } from 'vue-router/types/router';
 
 export default Vue.extend({
@@ -28,6 +30,7 @@ export default Vue.extend({
     PosterBg,
     MoviesPagination,
     Loader,
+    Header,
   },
   data: () => ({
     posterBg: '',
