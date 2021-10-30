@@ -22,6 +22,4 @@ const store = new Vuex.Store({
   },
 });
 
-store.dispatch('initMoviesState');
-
 export default store;

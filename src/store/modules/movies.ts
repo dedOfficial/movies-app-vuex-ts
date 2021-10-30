@@ -76,13 +76,6 @@ const moviesStore = {
     },
   },
   actions: {
-    initMoviesState: {
-      handler(context: ActionContext<IMoviesState, IRootState>): void {
-        context.dispatch('fetchMovies');
-      },
-      root: true,
-    },
-
     async fetchMovies(
       context: ActionContext<IMoviesState, IRootState>
     ): Promise<void> {
