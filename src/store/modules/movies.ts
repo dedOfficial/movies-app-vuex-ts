@@ -71,6 +71,7 @@ const moviesStore = {
       context: ActionContext<IMoviesState, IRootState>
     ): Promise<void> {
       try {
+        context.dispatch('toggleLoader', true, { root: true });
         const { sliceIDs, currentPage, moviesPerPage } = context.getters;
         const to = currentPage * moviesPerPage;
         const from = to - moviesPerPage;
@@ -84,6 +85,8 @@ const moviesStore = {
         context.commit(MOVIES, movies);
       } catch (error) {
         console.log(error);
+      } finally {
+        context.dispatch('toggleLoader', false, { root: true });
       }
     },
     changeCurrentPage(

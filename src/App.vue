@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Loader />
     <PosterBg :poster="posterBg" />
     <MoviesList :list="moviesList" @changePoster="onChangePoster" />
     <MoviesPagination
@@ -17,6 +18,7 @@ import { mapActions, mapGetters } from 'vuex';
 import MoviesList from '@/components/MoviesList.vue';
 import PosterBg from '@/components/PosterBg.vue';
 import MoviesPagination from '@/components/MoviesPagination.vue';
+import Loader from '@/components/Loader.vue';
 import { Dictionary } from 'vue-router/types/router';
 
 export default Vue.extend({
@@ -25,6 +27,7 @@ export default Vue.extend({
     MoviesList,
     PosterBg,
     MoviesPagination,
+    Loader,
   },
   data: () => ({
     posterBg: '',
