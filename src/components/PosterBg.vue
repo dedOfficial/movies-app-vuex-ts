@@ -1,26 +1,26 @@
 <template>
-  <div id="poster-bg" :style="posterStyle"> </div>
+  <div id="poster-bg" :style="posterStyle"></div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 export default Vue.extend({
-  name: 'PosterBg',
+  name: "PosterBg",
   props: {
     poster: {
       type: String,
-      default: '',
+      default: "",
     },
   },
   data: () => ({
     defaultPosterBg:
-      'linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82, 15, 117) 100%)',
+      "linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82, 15, 117) 100%)",
   }),
   computed: {
     posterStyle() {
       const bg = this.poster ? `url(${this.poster})` : this.defaultPosterBg;
       return {
-        'background-image': bg,
+        "background-image": bg,
       };
     },
   },
@@ -42,7 +42,7 @@ export default Vue.extend({
 }
 
 #poster-bg::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;

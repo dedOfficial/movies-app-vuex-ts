@@ -3,17 +3,17 @@
 </template>
 
 <script lang="ts">
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
-import Vue from 'vue';
-import { TNotifyParams } from '@/store/modules/notification';
+import Vue from "vue";
+import { TNotifyParams } from "@/store/modules/notification";
 export default Vue.extend({
-  name: 'Notification',
+  name: "Notification",
   computed: {
-    ...mapGetters(['messagePool']),
+    ...mapGetters(["messagePool"]),
   },
   watch: {
-    messagePool: 'showNotification',
+    messagePool: "showNotification",
   },
   methods: {
     showNotification({ variant, msg, title }: TNotifyParams) {

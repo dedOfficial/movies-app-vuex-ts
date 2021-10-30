@@ -70,10 +70,10 @@
 </template>
 
 <script lang="ts">
-import { TData } from '@/store/modules/movies';
-import Vue, { PropType } from 'vue';
+import { TData } from "@/store/modules/movies";
+import Vue, { PropType } from "vue";
 export default Vue.extend({
-  name: 'MovieInfoModalContent',
+  name: "MovieInfoModalContent",
   props: {
     movie: {
       type: Object as PropType<TData>,
@@ -82,11 +82,11 @@ export default Vue.extend({
   },
   data: () => ({
     defaultPosterBg:
-      'linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82, 15, 117) 100%)',
+      "linear-gradient(45deg, rgb(0, 3, 38) 0%, rgb(82, 15, 117) 100%)",
   }),
   methods: {
     closeModal() {
-      this.$emit('closeModal');
+      this.$emit("closeModal");
     },
   },
   computed: {
@@ -95,7 +95,7 @@ export default Vue.extend({
         ? `url(${this.movie.Poster})`
         : this.defaultPosterBg;
       return {
-        'background-image': bg,
+        "background-image": bg,
       };
     },
   },

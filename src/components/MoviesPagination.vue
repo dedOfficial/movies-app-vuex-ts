@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 export default Vue.extend({
-  name: 'MoviesPagination',
+  name: "MoviesPagination",
 
   props: {
     currentPage: {
@@ -35,7 +35,7 @@ export default Vue.extend({
         return this.currentPage;
       },
       set(value: number) {
-        this.$emit('pageChanged', value);
+        this.$emit("pageChanged", value);
       },
     },
   },

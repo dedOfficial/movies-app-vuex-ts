@@ -15,18 +15,18 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapActions, mapGetters } from 'vuex';
-import MoviesList from '@/components/MoviesList.vue';
-import PosterBg from '@/components/PosterBg.vue';
-import MoviesPagination from '@/components/MoviesPagination.vue';
-import Loader from '@/components/Loader.vue';
-import Header from '@/components/Header.vue';
-import Notification from '@/components/Notification.vue';
-import { Dictionary } from 'vue-router/types/router';
+import Vue from "vue";
+import { mapActions, mapGetters } from "vuex";
+import MoviesList from "@/components/MoviesList.vue";
+import PosterBg from "@/components/PosterBg.vue";
+import MoviesPagination from "@/components/MoviesPagination.vue";
+import Loader from "@/components/Loader.vue";
+import Header from "@/components/Header.vue";
+import Notification from "@/components/Notification.vue";
+import { Dictionary } from "vue-router/types/router";
 
 export default Vue.extend({
-  name: 'App',
+  name: "App",
   components: {
     MoviesList,
     PosterBg,
@@ -36,17 +36,17 @@ export default Vue.extend({
     Notification,
   },
   data: () => ({
-    posterBg: '',
+    posterBg: "",
   }),
   watch: {
-    '$route.query': {
-      handler: 'onPageQueryChange',
+    "$route.query": {
+      handler: "onPageQueryChange",
       immediate: true,
       deep: true,
     },
   },
   methods: {
-    ...mapActions('movies', ['changeCurrentPage']),
+    ...mapActions("movies", ["changeCurrentPage"]),
     onChangePoster(poster: string) {
       this.posterBg = poster;
     },
@@ -54,7 +54,7 @@ export default Vue.extend({
       this.changeCurrentPage(Number(page));
     },
     onPageChanged(page: number) {
-      this.$router.push({ query: { page: page + '' } });
+      this.$router.push({ query: { page: page + "" } });
     },
     created() {
       if (this.$route.query.page) {
@@ -63,11 +63,11 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapGetters('movies', [
-      'moviesList',
-      'currentPage',
-      'moviesPerPage',
-      'moviesTotal',
+    ...mapGetters("movies", [
+      "moviesList",
+      "currentPage",
+      "moviesPerPage",
+      "moviesTotal",
     ]),
   },
 });

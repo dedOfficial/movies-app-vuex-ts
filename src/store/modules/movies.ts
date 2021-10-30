@@ -1,8 +1,8 @@
-import axios from '@/plugins/axios';
-import { ActionContext } from 'vuex';
-import { IRootState } from '..';
-import IDs from '../mock/imdb_top250';
-import mutations from '../mutations';
+import axios from "@/plugins/axios";
+import { ActionContext } from "vuex";
+import { IRootState } from "..";
+import IDs from "../mock/imdb_top250";
+import mutations from "../mutations";
 
 export interface IMoviesState {
   top250IDs: string[];
@@ -80,7 +80,7 @@ const moviesStore = {
       context: ActionContext<IMoviesState, IRootState>
     ): Promise<void> {
       try {
-        context.dispatch('toggleLoader', true, { root: true });
+        context.dispatch("toggleLoader", true, { root: true });
         const { sliceIDs, currentPage, moviesPerPage } = context.getters;
         const to = currentPage * moviesPerPage;
         const from = to - moviesPerPage;
@@ -95,7 +95,7 @@ const moviesStore = {
       } catch (error) {
         console.log(error);
       } finally {
-        context.dispatch('toggleLoader', false, { root: true });
+        context.dispatch("toggleLoader", false, { root: true });
       }
     },
 
@@ -104,7 +104,7 @@ const moviesStore = {
       page: number
     ): void {
       commit(CURRENT_PAGE, page);
-      dispatch('fetchMovies');
+      dispatch("fetchMovies");
     },
 
     removeMovie(
@@ -115,7 +115,7 @@ const moviesStore = {
 
       if (index !== -1) {
         commit(REMOVE_MOVIE, index);
-        dispatch('fetchMovies');
+        dispatch("fetchMovies");
       }
     },
 
@@ -124,7 +124,7 @@ const moviesStore = {
       query: string
     ): Promise<void> {
       try {
-        dispatch('toggleLoader', true, { root: true });
+        dispatch("toggleLoader", true, { root: true });
 
         const response = await (<Promise<TSearchData>>(
           axios.get(`/?s=${query}`)
@@ -141,16 +141,16 @@ const moviesStore = {
       } catch (error) {
         const err = error as Error;
         dispatch(
-          'showNotify',
+          "showNotify",
           {
             msg: err.message,
-            title: 'Error',
-            variant: 'danger',
+            title: "Error",
+            variant: "danger",
           },
           { root: true }
         );
       } finally {
-        dispatch('toggleLoader', false, { root: true });
+        dispatch("toggleLoader", false, { root: true });
       }
     },
 

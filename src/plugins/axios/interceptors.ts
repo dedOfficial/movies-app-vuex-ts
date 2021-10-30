@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosResponse } from "axios";
 
 // Response Interceptor
 function returnData(res: AxiosResponse) {

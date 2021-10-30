@@ -17,22 +17,22 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapActions } from 'vuex';
+import Vue from "vue";
+import { mapActions } from "vuex";
 
 export default Vue.extend({
-  name: 'Header',
+  name: "Header",
   data: () => ({
-    searchValue: '',
+    searchValue: "",
   }),
   watch: {
-    searchValue: 'onSearchValueChanged',
+    searchValue: "onSearchValueChanged",
   },
   methods: {
-    ...mapActions('movies', [
-      'searchMovies',
-      'fetchMovies',
-      'toggleSearchState',
+    ...mapActions("movies", [
+      "searchMovies",
+      "fetchMovies",
+      "toggleSearchState",
     ]),
     onSearchValueChanged(value: string) {
       if (value) {

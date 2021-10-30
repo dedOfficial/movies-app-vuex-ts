@@ -37,10 +37,10 @@
 </template>
 
 <script lang="ts">
-import { TData } from '@/store/modules/movies';
-import Vue, { PropType } from 'vue';
+import { TData } from "@/store/modules/movies";
+import Vue, { PropType } from "vue";
 export default Vue.extend({
-  name: 'MovieItem',
+  name: "MovieItem",
   props: {
     movie: {
       type: Object as PropType<TData>,
@@ -49,13 +49,13 @@ export default Vue.extend({
   },
   methods: {
     emitRemoveEvent() {
-      this.$emit('removeItem', {
+      this.$emit("removeItem", {
         id: this.movie.imdbID,
         title: this.movie.Title,
       });
     },
     showInfoModalEvent() {
-      this.$emit('showModal', this.movie.imdbID);
+      this.$emit("showModal", this.movie.imdbID);
     },
   },
 });

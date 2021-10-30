@@ -1,6 +1,6 @@
-import mutations from '@/store/mutations';
-import { ActionContext } from 'vuex';
-import { IRootState } from '..';
+import mutations from "@/store/mutations";
+import { ActionContext } from "vuex";
+import { IRootState } from "..";
 
 const { SHOW_TOAST_NOTIFY } = mutations;
 

@@ -34,14 +34,14 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue';
-import { mapActions, mapGetters } from 'vuex';
-import MovieItem from '@/components/MovieItem.vue';
-import MovieInfoModalContent from '@/components/MovieInfoModalContent.vue';
-import { TSerializedData } from '@/store/modules/movies';
+import Vue, { PropType } from "vue";
+import { mapActions, mapGetters } from "vuex";
+import MovieItem from "@/components/MovieItem.vue";
+import MovieInfoModalContent from "@/components/MovieInfoModalContent.vue";
+import { TSerializedData } from "@/store/modules/movies";
 
 export default Vue.extend({
-  name: 'MoviesList',
+  name: "MoviesList",
   components: {
     MovieItem,
     MovieInfoModalContent,
@@ -53,15 +53,15 @@ export default Vue.extend({
     },
   },
   data: () => ({
-    movieInfoModalId: 'movie-info',
-    selectedMovieID: '',
+    movieInfoModalId: "movie-info",
+    selectedMovieID: "",
   }),
   methods: {
-    ...mapActions('movies', ['removeMovie']),
-    ...mapActions(['showNotify']),
+    ...mapActions("movies", ["removeMovie"]),
+    ...mapActions(["showNotify"]),
 
     onMouseOver(poster: string) {
-      this.$emit('changePoster', poster);
+      this.$emit("changePoster", poster);
     },
     async onRemoveItem({
       id,
@@ -71,15 +71,15 @@ export default Vue.extend({
       title: string;
     }): Promise<void> {
       const isConfirmed = await this.$bvModal.msgBoxConfirm(
-        'Are you sure delete' + title + '?'
+        "Are you sure delete" + title + "?"
       );
 
       if (isConfirmed) {
         this.removeMovie(id);
         this.showNotify({
-          variant: 'success',
-          title: 'Success',
-          msg: 'Movie deleted successful',
+          variant: "success",
+          title: "Success",
+          msg: "Movie deleted successful",
         });
       }
     },
@@ -88,18 +88,18 @@ export default Vue.extend({
       this.$bvModal.show(this.movieInfoModalId);
     },
     onCloseModal() {
-      this.selectedMovieID = '';
+      this.selectedMovieID = "";
       this.$bvModal.hide(this.movieInfoModalId);
     },
   },
   computed: {
-    ...mapGetters('movies', ['isSearch']),
+    ...mapGetters("movies", ["isSearch"]),
     isExist() {
       return !!Object.keys(this.$props.list).length;
     },
 
     listTitle() {
-      return this.isSearch ? 'Search result' : 'IMDB Top 250';
+      return this.isSearch ? "Search result" : "IMDB Top 250";
     },
     selectedMovie() {
       return this.selectedMovieID ? this.list[this.selectedMovieID] : null;
