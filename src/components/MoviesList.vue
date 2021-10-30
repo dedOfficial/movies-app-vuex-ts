@@ -59,7 +59,6 @@ export default Vue.extend({
   methods: {
     ...mapActions("movies", ["removeMovie"]),
     ...mapActions(["showNotify"]),
-
     onMouseOver(poster: string) {
       this.$emit("changePoster", poster);
     },
@@ -75,8 +74,8 @@ export default Vue.extend({
       );
 
       if (isConfirmed) {
-        this.removeMovie(id);
-        this.showNotify({
+        (this as any).removeMovie(id);
+        (this as any).showNotify({
           variant: "success",
           title: "Success",
           msg: "Movie deleted successful",
