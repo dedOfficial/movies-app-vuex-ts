@@ -2,6 +2,8 @@
 
 An application that displays top films. You can also add your films to the top
 
+### Deployed project link: https://movie-app-1044b.web.app/
+
 ## Project pre-setup
 
 1. Create a `.env` file at the root of the project.
